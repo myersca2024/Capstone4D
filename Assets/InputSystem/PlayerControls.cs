@@ -44,6 +44,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CameraLock"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8dc164f-97e0-44cd-b010-7676c536cea1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""05a24776-16a7-4066-b91e-49a61ea55a8f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -134,6 +152,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""WAxis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49b4ca5e-5f27-44bb-9f8d-09e0d508c2f9"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraLock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4a3d9c3-3798-4148-9d38-ef60d8701a60"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -144,6 +184,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_WAxis = m_Player.FindAction("WAxis", throwIfNotFound: true);
+        m_Player_CameraLock = m_Player.FindAction("CameraLock", throwIfNotFound: true);
+        m_Player_CameraMove = m_Player.FindAction("CameraMove", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,12 +247,16 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_WAxis;
+    private readonly InputAction m_Player_CameraLock;
+    private readonly InputAction m_Player_CameraMove;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @WAxis => m_Wrapper.m_Player_WAxis;
+        public InputAction @CameraLock => m_Wrapper.m_Player_CameraLock;
+        public InputAction @CameraMove => m_Wrapper.m_Player_CameraMove;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -226,6 +272,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @WAxis.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWAxis;
                 @WAxis.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWAxis;
                 @WAxis.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWAxis;
+                @CameraLock.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLock;
+                @CameraLock.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLock;
+                @CameraLock.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLock;
+                @CameraMove.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraMove;
+                @CameraMove.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraMove;
+                @CameraMove.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraMove;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -236,6 +288,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @WAxis.started += instance.OnWAxis;
                 @WAxis.performed += instance.OnWAxis;
                 @WAxis.canceled += instance.OnWAxis;
+                @CameraLock.started += instance.OnCameraLock;
+                @CameraLock.performed += instance.OnCameraLock;
+                @CameraLock.canceled += instance.OnCameraLock;
+                @CameraMove.started += instance.OnCameraMove;
+                @CameraMove.performed += instance.OnCameraMove;
+                @CameraMove.canceled += instance.OnCameraMove;
             }
         }
     }
@@ -244,5 +302,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnWAxis(InputAction.CallbackContext context);
+        void OnCameraLock(InputAction.CallbackContext context);
+        void OnCameraMove(InputAction.CallbackContext context);
     }
 }
