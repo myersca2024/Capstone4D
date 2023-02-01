@@ -11,35 +11,52 @@ public class PlayerController : MonoBehaviour
 {
     public RaymarchCam cam;
     public CinemachineVirtualCamera vcam;
+
     public float playerSpeed;
     public float cameraSpeed;
     public float turnSpeed;
+    public float jumpForce;
     public float wAxisSpeed;
+
     public float DeathDistance;
 
     private Vector3 StartPos;
     private bool endGame = false;
     private Transform model;
     private PlayerControls playerControls;
+
     private CinemachineOrbitalTransposer transposer;
+
+    private PlayerRayMarchCollider prmc;
+    private bool isJumping;
+    private float velocity = 0f;
+
+    private float yPosDifference;
+    private Vector3 previouslyTrackedPosition;
+
+    private Shape4D nan = null; // null shape
 
     private void Start()
     {
         model = transform;
         StartPos = transform.position;
         transposer = vcam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+        prmc = gameObject.GetComponent<PlayerRayMarchCollider>();
 
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        TrackYPos();
+
         if (transform.position.y < DeathDistance)
         {
             transform.position = StartPos;
         }
+
         if (!endGame)
         {
             if (playerControls.Player.CameraLock.WasPerformedThisFrame() || playerControls.Player.CameraLock.IsPressed())
@@ -62,18 +79,20 @@ public class PlayerController : MonoBehaviour
                 Look(direction);
                 Move(direction);
             }
+            if (playerControls.Player.Jump.WasPerformedThisFrame() || isJumping) { Jump(); }
+
             float waxis = playerControls.Player.WAxis.ReadValue<float>();
             if (waxis != 0) { WAxisMove(waxis); }
         }
     }
 
-    void Move(Vector3 input)
+    private void Move(Vector3 input)
     {
         transform.position += Matrix4x4.Rotate(Quaternion.Euler(0, cam.transform.eulerAngles.y, 0)).MultiplyPoint3x4(input) * 
             input.normalized.magnitude * playerSpeed * Time.deltaTime;
     }
 
-    void Look(Vector3 input)
+    private void Look(Vector3 input)
     {
         Quaternion rot = Quaternion.LookRotation(Matrix4x4.Rotate(
             Quaternion.Euler(0, cam.transform.eulerAngles.y, 0)).MultiplyPoint3x4(input), 
@@ -81,14 +100,37 @@ public class PlayerController : MonoBehaviour
         model.rotation = Quaternion.RotateTowards(model.rotation, rot, turnSpeed * Time.deltaTime);
     }
 
-    void WAxisMove(float val)
+    private void Jump()
+    {
+        if (!isJumping)
+        {
+            isJumping = true;
+            transform.position += new Vector3(0, jumpForce * Time.deltaTime, 0);
+        }
+        else
+        {
+            transform.position += new Vector3(0, jumpForce * Time.deltaTime, 0);
+            if (yPosDifference <= 0f && prmc.DistanceField(transform.position, out nan) < 0.1f)
+            {
+                isJumping = false;
+            }
+        }
+    }
+
+    private void WAxisMove(float val)
     {
         cam._wPosition = Mathf.Clamp(cam._wPosition + val * wAxisSpeed * Time.deltaTime, -10, 10);
     }
 
-    void CameraMove(float val)
+    private void CameraMove(float val)
     {
         transposer.m_XAxis.Value += val * cameraSpeed * Time.deltaTime;
+    }
+
+    private void TrackYPos()
+    {
+        yPosDifference = transform.position.y - previouslyTrackedPosition.y;
+        previouslyTrackedPosition = transform.position;
     }
 
     public void EndGame()

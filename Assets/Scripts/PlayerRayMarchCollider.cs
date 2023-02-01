@@ -13,6 +13,7 @@ namespace Unity.Mathematics
     {
 
         public float colliderOffset = 1.2f;
+        public float gravityForce;
         public float maxDownMovement = 1f;
         [Tooltip ("The transforms from which the raymarcher will test the distances and apply the collision")]
         public Transform[] rayMarchTransforms;
@@ -158,7 +159,7 @@ namespace Unity.Mathematics
             float d = DistanceField(p, out nan);
             d = Mathf.Min(d, maxDownMovement);
             //Debug.Log(d);
-            transform.Translate(Vector3.down * d, Space.World);
+            transform.Translate(Vector3.down * d * Time.deltaTime, Space.World);
         }
 
     }

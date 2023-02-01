@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectSelect : MonoBehaviour
 {
     public Unity.Mathematics.PlayerRayMarchCollider prmc;
+    public Camera pixelCamera;
     public float maxIterations;
     public float iterationDistance;
 
@@ -21,7 +22,7 @@ public class ObjectSelect : MonoBehaviour
 
     void Update()
     {
-        DrawTheRay();
+        //DrawTheRay();
         if (playerControls.Player.ObjectsSelect.WasPressedThisFrame())
         {
             Shape4D shape = null;
@@ -31,8 +32,8 @@ public class ObjectSelect : MonoBehaviour
 
             for (int i = 0; i < maxIterations; i++)
             {
-                rayPos = cam.ScreenPointToRay(new Vector3(mousePos.x, mousePos.y)).direction;
-                Debug.DrawRay(cam.transform.position, rayPos);
+                Ray ray = new Ray(cam.transform.position, cam.transform.rotation * pixelCamera.ScreenPointToRay(mousePos).direction);
+                rayPos = ray.origin + ray.direction * i;
                 hit = MouseRayMarch(rayPos, out shape);
 
                 if (hit && shape != null)
@@ -46,8 +47,8 @@ public class ObjectSelect : MonoBehaviour
     void DrawTheRay()
     {
         Vector2 mousePos = playerControls.Player.MousePosition.ReadValue<Vector2>();
-        Vector3 rayPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 100f));
-        Debug.DrawRay(cam.transform.position, rayPos);
+        Ray ray = new Ray(cam.transform.position, cam.transform.rotation * pixelCamera.ScreenPointToRay(mousePos).direction);
+        Debug.DrawRay(ray.origin, ray.direction * 100f);
     }
 
     bool MouseRayMarch(Vector3 vec, out Shape4D shape)

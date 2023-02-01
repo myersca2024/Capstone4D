@@ -80,6 +80,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""74786cd7-f8a0-4099-962f-e79ecee834ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -214,6 +223,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb561439-40ad-4582-92ea-8f6be73ff32f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -228,6 +248,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_CameraMove = m_Player.FindAction("CameraMove", throwIfNotFound: true);
         m_Player_ObjectsSelect = m_Player.FindAction("ObjectsSelect", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,6 +314,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CameraMove;
     private readonly InputAction m_Player_ObjectsSelect;
     private readonly InputAction m_Player_MousePosition;
+    private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -303,6 +325,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @CameraMove => m_Wrapper.m_Player_CameraMove;
         public InputAction @ObjectsSelect => m_Wrapper.m_Player_ObjectsSelect;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -330,6 +353,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -352,6 +378,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -364,5 +393,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnCameraMove(InputAction.CallbackContext context);
         void OnObjectsSelect(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }
