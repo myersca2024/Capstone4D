@@ -62,6 +62,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ObjectsSelect"",
+                    ""type"": ""Button"",
+                    ""id"": ""eae0eb8b-dfda-4263-b6f3-e5797335bc1f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""0219eee4-34ba-4e68-b205-34b6b8ab545c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -174,6 +192,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""CameraMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64418437-7a80-4b87-b268-9bc2bd8d82ce"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ObjectsSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70a69c5f-247a-4466-83f0-097d28d3a102"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -186,6 +226,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_WAxis = m_Player.FindAction("WAxis", throwIfNotFound: true);
         m_Player_CameraLock = m_Player.FindAction("CameraLock", throwIfNotFound: true);
         m_Player_CameraMove = m_Player.FindAction("CameraMove", throwIfNotFound: true);
+        m_Player_ObjectsSelect = m_Player.FindAction("ObjectsSelect", throwIfNotFound: true);
+        m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +291,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_WAxis;
     private readonly InputAction m_Player_CameraLock;
     private readonly InputAction m_Player_CameraMove;
+    private readonly InputAction m_Player_ObjectsSelect;
+    private readonly InputAction m_Player_MousePosition;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -257,6 +301,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @WAxis => m_Wrapper.m_Player_WAxis;
         public InputAction @CameraLock => m_Wrapper.m_Player_CameraLock;
         public InputAction @CameraMove => m_Wrapper.m_Player_CameraMove;
+        public InputAction @ObjectsSelect => m_Wrapper.m_Player_ObjectsSelect;
+        public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -278,6 +324,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CameraMove.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraMove;
                 @CameraMove.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraMove;
                 @CameraMove.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraMove;
+                @ObjectsSelect.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnObjectsSelect;
+                @ObjectsSelect.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnObjectsSelect;
+                @ObjectsSelect.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnObjectsSelect;
+                @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -294,6 +346,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CameraMove.started += instance.OnCameraMove;
                 @CameraMove.performed += instance.OnCameraMove;
                 @CameraMove.canceled += instance.OnCameraMove;
+                @ObjectsSelect.started += instance.OnObjectsSelect;
+                @ObjectsSelect.performed += instance.OnObjectsSelect;
+                @ObjectsSelect.canceled += instance.OnObjectsSelect;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -304,5 +362,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnWAxis(InputAction.CallbackContext context);
         void OnCameraLock(InputAction.CallbackContext context);
         void OnCameraMove(InputAction.CallbackContext context);
+        void OnObjectsSelect(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }

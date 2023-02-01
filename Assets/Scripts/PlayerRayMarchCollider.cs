@@ -76,8 +76,9 @@ namespace Unity.Mathematics
             return Camera.main.farClipPlane;
         }
 
-        public float DistanceField(float3 p)
+        public float DistanceField(float3 p, out Shape4D hitShape)
         {
+            hitShape = null;
             float4 p4D = float4(p, camScript._wPosition);
             Vector3 wRot = camScript._wRotation * Mathf.Deg2Rad;
 
@@ -99,7 +100,10 @@ namespace Unity.Mathematics
                 int numChildren = shape.numChildren;
 
                 float localDst = GetShapeDistance(shape, p4D);
-
+                if (localDst < 0)
+                {
+                    hitShape = shape;
+                }
 
                 for (int j = 0; j < numChildren; j++)
                 {
@@ -115,7 +119,6 @@ namespace Unity.Mathematics
             }
 
             return globalDst;
-
         }
 
         // the raymarcher checks the distance to all the given transforms, if one is less than zero, the player is moved in the opposite direction
@@ -128,7 +131,8 @@ namespace Unity.Mathematics
             {
                 Vector3 p = ro[i].position;
                 //check hit
-                float d = DistanceField(p);
+                Shape4D nan = null;
+                float d = DistanceField(p, out nan);
 
 
                 if (d < 0) //hit
@@ -148,9 +152,10 @@ namespace Unity.Mathematics
         void MoveToGround()
         {
             Vector3 p = transform.position;
-           //check hit
+            //check hit
 
-            float d = DistanceField(p);
+            Shape4D nan = null;
+            float d = DistanceField(p, out nan);
             d = Mathf.Min(d, maxDownMovement);
             //Debug.Log(d);
             transform.Translate(Vector3.down * d, Space.World);
