@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float cameraSpeed;
     public float turnSpeed;
     public float jumpForce;
+    public float gravity;
     public float wAxisSpeed;
 
     public float DeathDistance;
@@ -30,9 +31,6 @@ public class PlayerController : MonoBehaviour
     private PlayerRayMarchCollider prmc;
     private bool isJumping;
     private float velocity = 0f;
-
-    private float yPosDifference;
-    private Vector3 previouslyTrackedPosition;
 
     private Shape4D nan = null; // null shape
 
@@ -50,7 +48,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        TrackYPos();
+        Gravity();
 
         if (transform.position.y < DeathDistance)
         {
@@ -105,15 +103,11 @@ public class PlayerController : MonoBehaviour
         if (!isJumping)
         {
             isJumping = true;
-            transform.position += new Vector3(0, jumpForce * Time.deltaTime, 0);
+            velocity = jumpForce;
         }
-        else
+        else if (velocity <= 0f && prmc.DistanceField(transform.position, out nan) < 0.1f)
         {
-            transform.position += new Vector3(0, jumpForce * Time.deltaTime, 0);
-            if (yPosDifference <= 0f && prmc.DistanceField(transform.position, out nan) < 0.1f)
-            {
-                isJumping = false;
-            }
+            isJumping = false;
         }
     }
 
@@ -127,10 +121,12 @@ public class PlayerController : MonoBehaviour
         transposer.m_XAxis.Value += val * cameraSpeed * Time.deltaTime;
     }
 
-    private void TrackYPos()
+    private void Gravity()
     {
-        yPosDifference = transform.position.y - previouslyTrackedPosition.y;
-        previouslyTrackedPosition = transform.position;
+        velocity -= gravity * Time.deltaTime;
+        float d = prmc.DistanceField(transform.position, out nan);
+        if (!isJumping && d < 0.1f) { velocity = 0f; }
+        transform.position += new Vector3(0, velocity * Time.deltaTime, 0);
     }
 
     public void EndGame()

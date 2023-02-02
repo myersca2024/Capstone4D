@@ -13,6 +13,7 @@ public class Shape4D : MonoBehaviour
     [Header("Shape Settings")]
     public ShapeType shapeType;
     public Operation operation;
+    public bool moveableObject;
 
     [Header("4D Transform Settings")]
     public float positionW;
