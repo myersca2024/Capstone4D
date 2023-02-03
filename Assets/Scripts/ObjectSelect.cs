@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ObjectSelect : MonoBehaviour
 {
+    public Shape4D selectedObject;
     public Unity.Mathematics.PlayerRayMarchCollider prmc;
     public Camera pixelCamera;
     public float maxIterations;
     public float iterationDistance;
+    public UnityEvent onShapeSelected;
+    public UnityEvent onShapeUnselected;
 
     private PlayerControls playerControls;
     private Camera cam;
@@ -38,9 +42,14 @@ public class ObjectSelect : MonoBehaviour
 
                 if (hit && shape != null)
                 {
+                    selectedObject = shape;
+                    onShapeSelected.Invoke();
                     return;
                 }
             }
+
+            selectedObject = null;
+            onShapeUnselected.Invoke();
         }
     }
 

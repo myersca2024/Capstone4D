@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 1
-  controlID: 15267
+  controlID: 34650
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 15268
+  controlID: 34651
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 15239
+  controlID: 34652
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -424,9 +424,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.34310186, y: -2.8779235, z: 14.797598}
+    m_Target: {x: 0.27955097, y: -2.47464, z: 5.4563}
     speed: 2
-    m_Value: {x: -0.34310186, y: -2.8779235, z: 14.797598}
+    m_Value: {x: 0.27955097, y: -2.47464, z: 5.4563}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -473,13 +473,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.0590801, y: 0.0098625505, z: -0.00055629946, w: -0.9983006}
+    m_Target: {x: -0.1638925, y: 0.17015813, z: -0.028519811, w: -0.9714006}
     speed: 2
-    m_Value: {x: -0.059074424, y: 0.009861603, z: -0.000556246, w: -0.9982047}
+    m_Value: {x: -0.16387226, y: 0.17013712, z: -0.028516289, w: -0.9712807}
   m_Size:
-    m_Target: 14.196359
+    m_Target: 11.062674
     speed: 2
-    m_Value: 14.196359
+    m_Value: 11.062674
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1416,8 +1416,8 @@ MonoBehaviour:
     y: 374.4
     width: 726.4
     height: 356.4
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -1516,18 +1516,18 @@ MonoBehaviour:
       m_ExpandedIDs: 18fbffff445200004a520000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: PlayerMesh
+        m_OriginalName: PlayerMesh
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -1322
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
       m_SearchString: 
@@ -1604,8 +1604,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/InputSystem
+    m_Folders: []
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -1765,7 +1764,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: 21060
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 108
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

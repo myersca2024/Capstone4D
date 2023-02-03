@@ -14,7 +14,6 @@ public class WSlider : MonoBehaviour
     void Start()
     {
         cam = GetComponent<RaymarchCam>();
-
     }
 
     // Update is called once per frame

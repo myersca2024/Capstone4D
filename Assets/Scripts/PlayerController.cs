@@ -18,16 +18,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public float gravity;
     public float wAxisSpeed;
-
     public float DeathDistance;
 
     private Vector3 StartPos;
     private bool endGame = false;
     private Transform model;
     private PlayerControls playerControls;
-
     private CinemachineOrbitalTransposer transposer;
-
     private PlayerRayMarchCollider prmc;
     private bool isJumping;
     private float velocity = 0f;
