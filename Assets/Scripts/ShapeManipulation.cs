@@ -11,8 +11,8 @@ public class ShapeManipulation : MonoBehaviour
 
     }
 
-    void Update()
+    public void ShowMovableComponents()
     {
-        
+
     }
 }
