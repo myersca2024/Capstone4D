@@ -42,14 +42,26 @@ public class ObjectSelect : MonoBehaviour
 
                 if (hit && shape != null)
                 {
-                    selectedObject = shape;
-                    onShapeSelected.Invoke();
+                    if (shape.moveableObject)
+                    {
+                        Debug.Log("Moveable shape selected");
+                        selectedObject = shape;
+                        onShapeSelected.Invoke();
+                    }
+                    else if (selectedObject != null)
+                    {
+                        selectedObject = null;
+                        onShapeUnselected.Invoke();
+                    }
                     return;
                 }
             }
 
-            selectedObject = null;
-            onShapeUnselected.Invoke();
+            if (selectedObject != null)
+            {
+                selectedObject = null;
+                onShapeUnselected.Invoke();
+            }
         }
     }
 
@@ -67,7 +79,6 @@ public class ObjectSelect : MonoBehaviour
 
         if (d < 0) //hit
         {
-            Debug.Log(shape.gameObject.name);
             //collision
             return true;
         }
