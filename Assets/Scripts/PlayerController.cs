@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Gravity();
+        // Gravity();
 
         if (transform.position.y < DeathDistance)
         {
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
             }
 
+            /*
             Vector2 moveInput = playerControls.Player.Move.ReadValue<Vector2>();
             Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y);
             if (direction.x != 0 || direction.z != 0)
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
                 Move(direction);
             }
             if (playerControls.Player.Jump.WasPerformedThisFrame() || isJumping) { Jump(); }
+            */
 
             float waxis = playerControls.Player.WAxis.ReadValue<float>();
             if (waxis != 0) { WAxisMove(waxis); }

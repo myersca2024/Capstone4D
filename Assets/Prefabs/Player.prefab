@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectSelect: {fileID: 0}
-  xyzMin: -50
-  xyzMax: 50
+  xyzMin: -500
+  xyzMax: 500
   wMin: -10
   wMax: 10
 --- !u!114 &7261883310573549782

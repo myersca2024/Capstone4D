@@ -27,7 +27,7 @@ public class ObjectSelect : MonoBehaviour
     void Update()
     {
         //DrawTheRay();
-        if (playerControls.Player.ObjectsSelect.WasPressedThisFrame())
+        if (playerControls.Player.ObjectsSelect.WasPressedThisFrame() && !MouseInputUIBlocker.BlockedByUI)
         {
             Shape4D shape = null;
             Vector2 mousePos = playerControls.Player.MousePosition.ReadValue<Vector2>();

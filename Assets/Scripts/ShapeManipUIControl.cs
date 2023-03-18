@@ -9,6 +9,14 @@ public class ShapeManipUIControl : MonoBehaviour
     public GameObject shapeManipPanel;
     public TMP_InputField[] inputs;
 
+    public void PopulateInputFields()
+    {
+        inputs[0].text = shapeManip.objectSelect.selectedObject.transform.position.x.ToString();
+        inputs[1].text = shapeManip.objectSelect.selectedObject.transform.position.y.ToString();
+        inputs[2].text = shapeManip.objectSelect.selectedObject.transform.position.z.ToString();
+        inputs[3].text = shapeManip.objectSelect.selectedObject.positionW.ToString();
+    }
+
     public void SetActiveUIPanel(bool isActive)
     {
         shapeManipPanel.SetActive(isActive);
