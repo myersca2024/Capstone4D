@@ -135,7 +135,7 @@ namespace Unity.Mathematics
 
                 if (d < 0) //hit
                 {
-                    Debug.Log("hit" + i);
+                    //Debug.Log("hit" + i);
                     nrHits++;
                     //collision
                     transform.Translate(ro[i].forward * d * 1.5f, Space.World);
