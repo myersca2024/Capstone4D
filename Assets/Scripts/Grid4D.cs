@@ -47,6 +47,26 @@ public class Grid4D
         Debug.DrawLine(GetWorldPosition(sizeX, 0, sizeZ), GetWorldPosition(sizeX, sizeY, sizeZ), Color.red, 100f);
     }
 
+    public void SetValue(bool val, int x, int y, int z, int w)
+    {
+        if (ContainsCell(new Vector3Int(x, y, z), w))
+        {
+            gridArray[x, y, z, w] = val;
+        }
+    }
+
+    public bool GetValue(int x, int y, int z, int w)
+    {
+        if (ContainsCell(new Vector3Int(x, y, z), w))
+        {
+            return gridArray[x, y, z, w];
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public Vector3 GetWorldPosition(int x, int y, int z)
     {
         return new Vector3(x, y, z) * cellSize + offset;

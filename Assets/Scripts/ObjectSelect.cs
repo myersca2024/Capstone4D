@@ -42,7 +42,7 @@ public class ObjectSelect : MonoBehaviour
 
                 if (hit && shape != null)
                 {
-                    if (shape.moveableObject)
+                    if (true)
                     {
                         Debug.Log("Moveable shape selected");
                         selectedObject = shape;

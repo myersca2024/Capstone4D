@@ -5,22 +5,23 @@ using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
-    public CinemachineVirtualCamera vcam;
+    public Transform target;
     public float cameraSpeed;
+    public float minDistance, maxDistance;
 
     private bool endGame = false;
     private PlayerControls playerControls;
-    private CinemachineOrbitalTransposer transposer;
+    private Vector3 lastRecordedPosition;
+    private Vector3 lastRecordedRotation;
 
     private void Start()
     {
-        transposer = vcam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+        RecordTransform();
 
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (!endGame)
@@ -29,7 +30,7 @@ public class CameraController : MonoBehaviour
             {
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
-                float camMoveInput = playerControls.Player.CameraMove.ReadValue<float>();
+                Vector2 camMoveInput = playerControls.Player.CameraMove.ReadValue<Vector2>();
                 CameraMove(camMoveInput);
             }
             else if (playerControls.Player.CameraLock.WasReleasedThisFrame())
@@ -39,8 +40,30 @@ public class CameraController : MonoBehaviour
             }
         }
     }
-    private void CameraMove(float val)
+
+    private void CameraMove(Vector2 val)
     {
-        transposer.m_XAxis.Value += val * cameraSpeed * Time.deltaTime;
+        transform.RotateAround(target.transform.position, Vector3.up, val.x * cameraSpeed * Time.deltaTime);
+        if (transform.eulerAngles.x >= 0 && transform.eulerAngles.x <= 75)
+        {
+            RecordTransform();
+            transform.RotateAround(target.transform.position, transform.right, val.y * cameraSpeed * Time.deltaTime);
+        }
+        if (transform.eulerAngles.x > 75 || transform.eulerAngles.x < 0)
+        {
+            LoadTransform();
+        }
+    }
+
+    private void RecordTransform()
+    {
+        lastRecordedPosition = transform.position;
+        lastRecordedRotation = transform.eulerAngles;
+    }
+
+    private void LoadTransform()
+    {
+        transform.position = lastRecordedPosition;
+        transform.eulerAngles = lastRecordedRotation;
     }
 }

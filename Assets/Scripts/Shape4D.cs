@@ -13,13 +13,13 @@ public class Shape4D : MonoBehaviour
     [Header("Shape Settings")]
     public ShapeType shapeType;
     public Operation operation;
-    public bool moveableObject;
 
     [Header("4D Transform Settings")]
     public float positionW;
     [Tooltip ("The rotation around the xw, yw and zw planes respectively")]
     public Vector3 rotationW;
     public float scaleW = 1f;
+    public Vector3Int gridLocation = new Vector3Int(-1, -1, -1);
 
     [Header("Render Settings")]
     public Color colour;

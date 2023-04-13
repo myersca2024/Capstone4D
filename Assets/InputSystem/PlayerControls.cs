@@ -58,7 +58,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""CameraMove"",
                     ""type"": ""Value"",
                     ""id"": ""05a24776-16a7-4066-b91e-49a61ea55a8f"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -194,7 +194,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e4a3d9c3-3798-4148-9d38-ef60d8701a60"",
-                    ""path"": ""<Mouse>/delta/x"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
