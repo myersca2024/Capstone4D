@@ -9,6 +9,8 @@ public class GridObjectSelect : MonoBehaviour
     public Vector3 spotToPlaceShape;
     public Unity.Mathematics.PlayerRayMarchCollider prmc;
     public Camera pixelCamera;
+    public PlacementActionRecorder recorder;
+    public GridObjectStorageBehavior gosb;
     public float maxIterations;
     public float iterationDistance;
 
@@ -37,7 +39,11 @@ public class GridObjectSelect : MonoBehaviour
         HoverGridSpace();
         if (spotToPlaceShape.x >= 0 && playerControls.Player.ObjectsSelect.WasPressedThisFrame() && !MouseInputUIBlocker.BlockedByUI)
         {
-            Place4DShape();
+            Place4DShape(objectToPlace);
+        }
+        if (playerControls.Player.Rotate.WasPerformedThisFrame())
+        {
+            Rotate4DShape();
         }
     }
 
@@ -97,15 +103,28 @@ public class GridObjectSelect : MonoBehaviour
         return false;
     }
 
-    private void Place4DShape()
+    private void Place4DShape(Shape4D obj)
     {
         Vector3Int spot = new Vector3Int((int)spotToPlaceShape.x, (int)spotToPlaceShape.y, (int)spotToPlaceShape.z);
-        if (objectToPlace == null || go.grid.GetValue(spot.x, spot.y, spot.z, (int)rc._wPosition)) { return; }
+        if (obj == null || go.grid.GetValue(spot.x, spot.y, spot.z, (int)(rc._wPosition / 2) + 1)) { return; }
 
-        Shape4D shape = Instantiate(objectToPlace, 
-                        go.grid.GetWorldPosition(spot.x, spot.y, spot.z) + new Vector3(go.cellSize / 2f, go.cellSize / 2f, go.cellSize / 2f), 
-                        objectToPlace.transform.rotation);
-        shape.gridLocation = spot;
-        go.grid.SetValue(true, spot.x, spot.y, spot.z, (int)rc._wPosition);
+        Shape4D shape = Instantiate(obj, 
+                            go.grid.GetWorldPosition(spot.x, spot.y, spot.z) + 
+                            new Vector3(go.cellSize / 2f, obj.gameObject.transform.localScale.y + spot.y, go.cellSize / 2f),
+                            obj.transform.rotation);
+        shape.positionW = rc._wPosition;
+        GridRailBehavior grb = shape.gameObject.GetComponent<GridRailBehavior>();
+        grb.gridXYZ = spot;
+        grb.gridW = (int)(shape.positionW / 2) + 1;
+        go.grid.SetValue(true, spot.x, spot.y, spot.z, (int)(rc._wPosition / 2) + 1); // CHANGE 1 TO FLOOR OF W_SIZE / 2 LATER
+        grb.InitializePathways();
+        gosb.CurrentShapeUsed();
+        recorder.PushAction(shape, gosb.GetCurrentShapeID());
+    }
+
+    private void Rotate4DShape()
+    {
+        if (spotToPlaceShape.x < 0) { return; }
+        objectToPlace.gameObject.transform.eulerAngles += new Vector3(0, 90, 0);
     }
 }

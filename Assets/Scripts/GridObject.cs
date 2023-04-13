@@ -14,7 +14,7 @@ public class GridObject : MonoBehaviour
     public Color lineColor;
     public Shader lineShader;
 
-    void Start()
+    void Awake()
     {
         grid = new Grid4D(sizeX, sizeY, sizeZ, sizeW, cellSize, transform.position);
         DrawGrid();

@@ -19,7 +19,6 @@ public class Shape4D : MonoBehaviour
     [Tooltip ("The rotation around the xw, yw and zw planes respectively")]
     public Vector3 rotationW;
     public float scaleW = 1f;
-    public Vector3Int gridLocation = new Vector3Int(-1, -1, -1);
 
     [Header("Render Settings")]
     public Color colour;
