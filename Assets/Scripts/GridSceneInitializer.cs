@@ -19,7 +19,7 @@ public class GridSceneInitializer : MonoBehaviour
     private void InitializeShape(Shape4D obj, Vector3Int gridPos, int wPos, Vector3 objRot)
     {
         Vector3Int spot = new Vector3Int((int)gridPos.x, (int)gridPos.y, (int)gridPos.z);
-        if (obj == null || go.grid.GetValue(spot.x, spot.y, spot.z, (int)(rc._wPosition / 2) + 1)) { return; }
+        if (obj == null || go.grid.GetValue(spot.x, spot.y, spot.z, wPos)) { return; }
 
         Shape4D shape = Instantiate(obj,
                             go.grid.GetWorldPosition(spot.x, spot.y, spot.z) +
