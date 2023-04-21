@@ -49,10 +49,10 @@ public class GridObjectSelect : MonoBehaviour
 
     private void HoverGridSpace()
     {
-        Shape4D shape = null;
+        //Shape4D shape = null;
         Vector2 mousePos = playerControls.Player.MousePosition.ReadValue<Vector2>();
-        Vector3 rayPos = Vector3.zero;
-        bool hit = false;
+        //Vector3 rayPos = Vector3.zero;
+        //bool hit = false;
 
         Ray ray = new Ray(cam.transform.position, cam.transform.rotation * pixelCamera.ScreenPointToRay(mousePos).direction);
         Debug.DrawRay(ray.origin, ray.direction * maxIterations * iterationDistance, Color.red);
@@ -112,6 +112,7 @@ public class GridObjectSelect : MonoBehaviour
                             go.grid.GetWorldPosition(spot.x, spot.y, spot.z) + 
                             new Vector3(go.cellSize / 2f, obj.gameObject.transform.localScale.y + spot.y, go.cellSize / 2f),
                             obj.transform.rotation);
+        shape.gameObject.SetActive(true);
         shape.positionW = rc._wPosition;
         GridRailBehavior grb = shape.gameObject.GetComponent<GridRailBehavior>();
         grb.gridXYZ = spot;

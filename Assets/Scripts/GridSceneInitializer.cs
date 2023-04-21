@@ -10,6 +10,11 @@ public class GridSceneInitializer : MonoBehaviour
 
     private void Start()
     {
+        InitializePuzzleObjects();
+    }
+
+    public void InitializePuzzleObjects()
+    {
         foreach (ObjectInitializerInstruction instruction in instructions)
         {
             InitializeShape(instruction.shape, instruction.gridPosition, instruction.wPosition, instruction.rotation);
@@ -25,6 +30,7 @@ public class GridSceneInitializer : MonoBehaviour
                             go.grid.GetWorldPosition(spot.x, spot.y, spot.z) +
                             new Vector3(go.cellSize / 2f, obj.gameObject.transform.localScale.y + spot.y, go.cellSize / 2f),
                             obj.transform.rotation);
+        shape.gameObject.SetActive(true);
         shape.positionW = (wPos - 1) * 2;
         GridRailBehavior grb = shape.gameObject.GetComponent<GridRailBehavior>();
         grb.gridXYZ = spot;

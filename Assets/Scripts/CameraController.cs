@@ -7,7 +7,6 @@ public class CameraController : MonoBehaviour
 {
     public Transform target;
     public float cameraSpeed;
-    public float minDistance, maxDistance;
 
     private bool endGame = false;
     private PlayerControls playerControls;
@@ -43,7 +42,7 @@ public class CameraController : MonoBehaviour
 
     private void CameraMove(Vector2 val)
     {
-        transform.RotateAround(target.transform.position, Vector3.up, val.x * cameraSpeed * Time.deltaTime);
+        transform.RotateAround(target.transform.position, Vector3.up, -val.x * cameraSpeed * Time.deltaTime);
         if (transform.eulerAngles.x >= 0 && transform.eulerAngles.x <= 75)
         {
             RecordTransform();

@@ -42,17 +42,16 @@ public class ObjectSelect : MonoBehaviour
 
                 if (hit && shape != null)
                 {
-                    if (true)
-                    {
-                        Debug.Log("Moveable shape selected");
-                        selectedObject = shape;
-                        onShapeSelected.Invoke();
-                    }
+                    Debug.Log("Moveable shape selected");
+                    selectedObject = shape;
+                    onShapeSelected.Invoke();
+                    /*
                     else if (selectedObject != null)
                     {
                         selectedObject = null;
                         onShapeUnselected.Invoke();
                     }
+                    */
                     return;
                 }
             }
