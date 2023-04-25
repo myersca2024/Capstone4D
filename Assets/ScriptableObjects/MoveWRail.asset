@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
+  m_Name: MoveWRail
+  m_EditorClassIdentifier: 
+  gridObject: {fileID: 865431096171739803, guid: 7128d6d8f1dac8c43b7ff02337b591de,
+    type: 3}
+  objectCount: 0
+  objectImage: {fileID: 0}

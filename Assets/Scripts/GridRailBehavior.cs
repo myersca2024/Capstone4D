@@ -7,13 +7,10 @@ public class GridRailBehavior : MonoBehaviour
     public Vector3Int gridXYZ = new Vector3Int(-1, -1, -1);
     public int gridW = -1;
     public Int4[] directions = new Int4[2];
+    public bool stackable;
+    public bool deletable = true;
 
     private Int4[] connectedSpaces = new Int4[2];
-
-    void Start()
-    {
-        
-    }
 
     public void InitializePathways()
     {

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
+  m_Name: PlatformY
+  m_EditorClassIdentifier: 
+  gridObject: {fileID: 1943942560722460899, guid: 24512e758fdebdc4daba064939e9c8a6,
+    type: 3}
+  hoverPreview: {fileID: 3647955957078333182, guid: 8ec1f1939d7f2714e91b5f9ee82d2892,
+    type: 3}
+  objectCount: 10
+  objectImage: {fileID: 0}

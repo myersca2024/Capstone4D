@@ -77,6 +77,8 @@ MonoBehaviour:
     y: 0
     z: 0
     w: -1
+  stackable: 0
+  deletable: 1
 --- !u!1001 &8922166501397875109
 PrefabInstance:
   m_ObjectHideFlags: 0

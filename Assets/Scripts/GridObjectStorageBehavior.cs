@@ -8,7 +8,7 @@ public class GridObjectStorageBehavior : MonoBehaviour
     public int[] currentShapeCounts;
     public ObjectSelectUIController osuc;
 
-    private GridObjectSelect gos;
+    private ObjectPlacer4D gos;
     private List<Shape4D> shapes;
     private int currentID;
 
@@ -26,7 +26,7 @@ public class GridObjectStorageBehavior : MonoBehaviour
             currentShapeCounts[i] = totalShapeCounts[i];
         }
 
-        gos = Camera.main.gameObject.GetComponent<GridObjectSelect>();
+        gos = Camera.main.gameObject.GetComponent<ObjectPlacer4D>();
     }
 
     public void SetObjectToPlace(int id)

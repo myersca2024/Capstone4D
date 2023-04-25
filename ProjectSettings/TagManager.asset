@@ -9,6 +9,9 @@ TagManager:
   - Button
   - Ship
   - WSlider
+  - ObjectPlacer
+  - ObjectSelectUI
+  - 4DGrid
   layers:
   - Default
   - TransparentFX
