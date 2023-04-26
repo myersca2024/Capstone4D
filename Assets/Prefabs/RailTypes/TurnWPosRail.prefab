@@ -51,7 +51,7 @@ MonoBehaviour:
   positionW: 0
   rotationW: {x: 45, y: 0, z: 0}
   scaleW: 0.7
-  colour: {r: 1, g: 0, b: 0, a: 0}
+  colour: {r: 0, g: 1, b: 0, a: 0}
   smoothRadius: 0
   numChildren: 1
 --- !u!114 &5394568869332521223
@@ -79,6 +79,7 @@ MonoBehaviour:
     w: 0
   stackable: 0
   deletable: 1
+  data: {fileID: 11400000, guid: 420f4f7b626492c43b27a499cce42652, type: 2}
 --- !u!1 &1987008143174862854
 GameObject:
   m_ObjectHideFlags: 0

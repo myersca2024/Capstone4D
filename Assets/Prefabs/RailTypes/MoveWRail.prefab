@@ -79,6 +79,7 @@ MonoBehaviour:
     w: -1
   stackable: 0
   deletable: 1
+  data: {fileID: 11400000, guid: c0a699d89669adc45a16766ca267fac6, type: 2}
 --- !u!1001 &8922166501397875109
 PrefabInstance:
   m_ObjectHideFlags: 0

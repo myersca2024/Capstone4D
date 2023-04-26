@@ -6,28 +6,29 @@ public class ObjectHoverPreview : MonoBehaviour
 {
     public GameObject hoverPreview;
 
-    private Vector3 defaultPos = new Vector3(-100, -100, -100);
+    private Vector3 defaultPos = new Vector3(0, -100, 0);
     private GridObjectSelect gos;
     private GridObject go;
     private RaymarchCam rc;
-
+    private ObjectPlacer4D op;
 
     void Start()
     {
         gos = Camera.main.GetComponent<GridObjectSelect>();
         rc = Camera.main.GetComponent<RaymarchCam>();
         go = GameObject.FindGameObjectWithTag("4DGrid").GetComponent<GridObject>();
+        op = GetComponent<ObjectPlacer4D>();
     }
 
     private void Update()
     {
-        if (hoverPreview == null) { return; }
+        if (hoverPreview == null || !op.IsInPlaceState()) { return; }
 
         Vector3 spot = gos.spotToPlaceShape;
         if (!WAxisController.isBusy && spot.x >= 0 && !go.grid.GetValue((int)spot.x, (int)spot.y, (int)spot.z, (int)(rc._wPosition / 2) + 1))
         {
             hoverPreview.transform.position = go.grid.GetWorldPosition((int)spot.x, (int)spot.y, (int)spot.z) + 
-                                              new Vector3(go.cellSize / 2f, hoverPreview.transform.localScale.y + spot.y, go.cellSize / 2f);
+                                              new Vector3(go.cellSize / 2f, hoverPreview.transform.localScale.y / 2, go.cellSize / 2f);
         }
         else
         {

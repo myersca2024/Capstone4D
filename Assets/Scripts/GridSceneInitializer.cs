@@ -35,7 +35,7 @@ public class GridSceneInitializer : MonoBehaviour
         GridRailBehavior grb = shape.gameObject.GetComponent<GridRailBehavior>();
         grb.gridXYZ = spot;
         grb.gridW = wPos;
-        go.grid.SetValue(true, spot.x, spot.y, spot.z, wPos); // CHANGE 1 TO FLOOR OF W_SIZE / 2 LATER
+        go.grid.SetValue(grb, spot.x, spot.y, spot.z, wPos); // CHANGE 1 TO FLOOR OF W_SIZE / 2 LATER
         shape.transform.eulerAngles += objRot;
         grb.InitializePathways();
     }

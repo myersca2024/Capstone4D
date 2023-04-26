@@ -14,9 +14,11 @@ public class GridObjectSelect : MonoBehaviour
     public float iterationDistance;
 
     private PlayerControls playerControls;
+    private ObjectPlacer4D op;
+    private RaymarchCam rc;
     private Camera cam;
     private GridObject go;
-    private Plane plane;
+    private Plane[] planes;
     private Vector3 defaultVec = new Vector3(-1, -1, -1);
 
     private void Start()
@@ -26,34 +28,55 @@ public class GridObjectSelect : MonoBehaviour
 
         cam = GetComponent<Camera>();
         go = FindObjectOfType<GridObject>();
-        plane = new Plane(Vector3.up, new Vector3(0, go.gameObject.transform.position.y, 0));
+        rc = Camera.main.GetComponent<RaymarchCam>();
+        op = GameObject.FindGameObjectWithTag("ObjectPlacer").GetComponent<ObjectPlacer4D>();
+        planes = new Plane[go.sizeY];
+        for (int i = 0; i < go.sizeY; i++)
+        {
+            planes[i] = new Plane(Vector3.up, new Vector3(0, go.gameObject.transform.position.y + (i * go.cellSize), 0));
+        }
         spotToPlaceShape = defaultVec;
     }
 
     private void Update()
     {
-        HoverGridSpace();
+        if (!WAxisController.isBusy)
+        {
+            if (op.IsInPlaceState()) { PlaceStateHover(); }
+            else { RemoveStateHover(); }
+        }
     }
 
-    private void HoverGridSpace()
+    private void PlaceStateHover()
     {
-        //Shape4D shape = null;
         Vector2 mousePos = playerControls.Player.MousePosition.ReadValue<Vector2>();
-        //Vector3 rayPos = Vector3.zero;
-        //bool hit = false;
 
         Ray ray = new Ray(cam.transform.position, cam.transform.rotation * pixelCamera.ScreenPointToRay(mousePos).direction);
         Debug.DrawRay(ray.origin, ray.direction * maxIterations * iterationDistance, Color.red);
 
         // Does ray hit the grid plane?
         float distance = 0f;
-        if (plane.Raycast(ray, out distance) && go.grid.ContainsCell(go.grid.GetXYZ(ray.GetPoint(distance)), 0))
-        {
-            spotToPlaceShape = go.grid.GetXYZ(ray.GetPoint(distance));
-        }
-        else
-        {
-            spotToPlaceShape = defaultVec;
+        for (int i = go.sizeY - 1; i >= 0; i--) {
+            planes[i].Raycast(ray, out distance);
+            if (i > 0)
+            {
+                Vector3Int pos = go.grid.GetXYZ(ray.GetPoint(distance));
+                if (go.grid.ContainsCell(pos, 0))
+                {
+                    Vector3Int belowPos = new Vector3Int(pos.x, pos.y - 1, pos.z);
+                    int wPos = (int)(rc._wPosition / 2) + 1;
+                    if (go.grid.GetValue(belowPos.x, belowPos.y, belowPos.z, wPos) && 
+                        go.grid.GetShape(belowPos.x, belowPos.y, belowPos.z, wPos).stackable)
+                    {
+                        spotToPlaceShape = pos;
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                spotToPlaceShape = go.grid.ContainsCell(go.grid.GetXYZ(ray.GetPoint(distance)), 0) ? go.grid.GetXYZ(ray.GetPoint(distance)) : defaultVec;
+            }
         }
 
         /*
@@ -74,6 +97,37 @@ public class GridObjectSelect : MonoBehaviour
             }
         }
         */
+    }
+
+    private void RemoveStateHover()
+    {
+        Vector2 mousePos = playerControls.Player.MousePosition.ReadValue<Vector2>();
+
+        Ray ray = new Ray(cam.transform.position, cam.transform.rotation * pixelCamera.ScreenPointToRay(mousePos).direction);
+        Debug.DrawRay(ray.origin, ray.direction * maxIterations * iterationDistance, Color.red);
+
+        // Does ray hit the grid plane?
+        float distance = 0f;
+        for (int i = go.sizeY - 1; i >= 0; i--)
+        {
+            planes[i].Raycast(ray, out distance);
+            Vector3Int pos = go.grid.GetXYZ(ray.GetPoint(distance));
+            if (go.grid.ContainsCell(pos, 0))
+            {
+                int wPos = (int)(rc._wPosition / 2) + 1;
+                if (go.grid.GetValue(pos.x, pos.y, pos.z, wPos) &&
+                    go.grid.GetShape(pos.x, pos.y, pos.z, wPos).deletable)
+                {
+                    spotToPlaceShape = pos;
+                    Debug.Log(pos);
+                    return;
+                }
+            }
+            else
+            {
+                spotToPlaceShape = defaultVec;
+            }
+        }
     }
 
     private bool MouseRayMarch(Vector3 vec, out Shape4D shape)

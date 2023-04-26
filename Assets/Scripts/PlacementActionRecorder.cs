@@ -15,31 +15,27 @@ public class PlacementActionRecorder : MonoBehaviour
 
     public void PushAction(Shape4D shape, int shapeID)
     {
-        ActionObject ao = new ActionObject(shape, shapeID);
-        actionStack.Push(ao);
+
     }
 
     public void PopAction()
     {
         if (actionStack.Count == 0) { return; }
-        
-        ActionObject ao = actionStack.Peek();
-        gosb.IncrementShapeCount(ao.shapeID);
-        GridRailBehavior grb = ao.objectPlaced.gameObject.GetComponent<GridRailBehavior>();
-        go.grid.SetValue(false, grb.gridXYZ.x, grb.gridXYZ.y, grb.gridXYZ.z, grb.gridW);
-        Destroy(ao.objectPlaced.gameObject);
-        actionStack.Pop();
     }
 
     public class ActionObject
     {
-        public Shape4D objectPlaced;
-        public int shapeID;
+        public ActionType action;
+        public Shape4DStorage data;
+        public GridRailBehavior.Int4 position;
 
-        public ActionObject(Shape4D objectPlaced, int shapeID)
+        public ActionObject(ActionType action, Shape4DStorage data, GridRailBehavior.Int4 position)
         {
-            this.objectPlaced = objectPlaced;
-            this.shapeID = shapeID;
+            this.action = action;
+            this.data = data;
+            this.position = position;
         }
+
+        public enum ActionType { Place, Delete };
     }
 }

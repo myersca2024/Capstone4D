@@ -17,4 +17,4 @@ MonoBehaviour:
   hoverPreview: {fileID: 5229996140508527788, guid: 43ced42d36afc1240a1da00ee3c7e9ee,
     type: 3}
   objectCount: 10
-  objectImage: {fileID: 0}
+  objectImage: {fileID: 21300000, guid: 838f2f2ba9cc00d4db471cd1bc46349b, type: 3}

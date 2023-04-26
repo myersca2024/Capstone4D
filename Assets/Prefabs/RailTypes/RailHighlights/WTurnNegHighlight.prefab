@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7795080989024807654}
   - component: {fileID: 7795080989024807653}
   m_Layer: 0
-  m_Name: WTurnHighlight
+  m_Name: WTurnNegHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 07f5e0ac7decc93419d4b084c0345c93, type: 2}
+  - {fileID: 2100000, guid: a6e5578c527e1e34fa3865defbfc7d63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

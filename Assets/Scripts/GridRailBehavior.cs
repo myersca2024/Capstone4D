@@ -9,6 +9,7 @@ public class GridRailBehavior : MonoBehaviour
     public Int4[] directions = new Int4[2];
     public bool stackable;
     public bool deletable = true;
+    [SerializeField] private Shape4DStorage data;
 
     private Int4[] connectedSpaces = new Int4[2];
 
@@ -20,6 +21,12 @@ public class GridRailBehavior : MonoBehaviour
             Vector3 newDir = gameObject.transform.localRotation * new Vector3(directions[i].x, directions[i].y, directions[i].z);
             connectedSpaces[i] = new Int4(pos.x + (int)newDir.x, pos.y + (int)newDir.y, pos.z + (int)newDir.z, pos.w + directions[0].w);
         }
+    }
+
+    public void DeleteShape(int x, int y, int z, int w)
+    {
+        data.IncrementObjectCount();
+        Destroy(gameObject);
     }
 
     [System.Serializable]

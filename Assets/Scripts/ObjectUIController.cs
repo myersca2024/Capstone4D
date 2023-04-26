@@ -19,6 +19,7 @@ public class ObjectUIController : MonoBehaviour
         }
         objectPlacer = GameObject.FindGameObjectWithTag("ObjectPlacer").GetComponent<ObjectPlacer4D>();
         objectPlacer.onShapePlaced.AddListener(DecrementCurrentShape);
+        objectPlacer.onShapeDeleted.AddListener(UpdateUITexts);
         objectPlacer.onShapePlaced.AddListener(CheckObjectAvailability);
         contentPanel.anchoredPosition = new Vector2(contentPanel.anchoredPosition.x, 0f);
     }
@@ -30,7 +31,7 @@ public class ObjectUIController : MonoBehaviour
 
     public void DecrementCurrentShape()
     {
-        if (shapeData != null) 
+        if (GameManager.isPlayMode && shapeData != null) 
         { 
             shapeData.DecrementObjectCount();
             UpdateUITexts();
@@ -39,7 +40,7 @@ public class ObjectUIController : MonoBehaviour
 
     public void CheckObjectAvailability()
     {
-        if (shapeData.GetCurrentObjectCount() <= 0)
+        if (GameManager.isPlayMode && shapeData.GetCurrentObjectCount() <= 0)
         {
             objectPlacer.SetObjectToPlace(null);
             shapeData = null;

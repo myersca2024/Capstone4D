@@ -11,7 +11,7 @@ public class Grid4D
     private int sizeW;
     private float cellSize;
     private Vector3 offset;
-    private bool[,,,] gridArray;
+    private GridRailBehavior[,,,] gridArray;
 
     public Grid4D(int sizeX, int sizeY, int sizeZ, int sizeW, float cellSize, Vector3 offset)
     {
@@ -21,7 +21,7 @@ public class Grid4D
         this.sizeW = sizeW;
         this.cellSize = cellSize;
         this.offset = offset;
-        gridArray = new bool[sizeX, sizeY, sizeZ, sizeW];
+        gridArray = new GridRailBehavior[sizeX, sizeY, sizeZ, sizeW];
 
         // DebugDrawGrid();
     }
@@ -47,7 +47,7 @@ public class Grid4D
         Debug.DrawLine(GetWorldPosition(sizeX, 0, sizeZ), GetWorldPosition(sizeX, sizeY, sizeZ), Color.red, 100f);
     }
 
-    public void SetValue(bool val, int x, int y, int z, int w)
+    public void SetValue(GridRailBehavior val, int x, int y, int z, int w)
     {
         if (ContainsCell(new Vector3Int(x, y, z), w))
         {
@@ -59,12 +59,18 @@ public class Grid4D
     {
         if (ContainsCell(new Vector3Int(x, y, z), w))
         {
-            return gridArray[x, y, z, w];
+            return gridArray[x, y, z, w] != null;
         }
         else
         {
             return false;
         }
+    }
+
+    public GridRailBehavior GetShape(int x, int y, int z, int w)
+    {
+        if (ContainsCell(new Vector3Int(x, y, z), w)) { return gridArray[x, y, z, w]; }
+        return null;
     }
 
     public Vector3 GetWorldPosition(int x, int y, int z)
