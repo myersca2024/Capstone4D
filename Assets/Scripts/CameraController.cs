@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (!endGame)
+        if (!endGame && !SceneManagement.isPaused)
         {
             if (playerControls.Player.CameraLock.WasPerformedThisFrame() || playerControls.Player.CameraLock.IsPressed())
             {

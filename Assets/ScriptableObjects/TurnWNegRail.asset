@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
   m_Name: TurnWNegRail
   m_EditorClassIdentifier: 
+  ID: 6
   gridObject: {fileID: 2977343300213535826, guid: 8dfe6e673c4be8a4ca6acb2b689129e4,
     type: 3}
   hoverPreview: {fileID: 7795080989024807652, guid: 591b5098f587b7a488d53ff9dbfd2f29,
     type: 3}
-  objectCount: 10
+  objectCount: 0
   objectImage: {fileID: 21300000, guid: add729ad3cdb3d147951d3198b94e7b4, type: 3}
+  currObjects: 0

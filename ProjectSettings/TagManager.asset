@@ -12,6 +12,9 @@ TagManager:
   - ObjectPlacer
   - ObjectSelectUI
   - 4DGrid
+  - ObjectTracker
+  - GameManager
+  - WAxisController
   layers:
   - Default
   - TransparentFX

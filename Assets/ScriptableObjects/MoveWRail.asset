@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
   m_Name: MoveWRail
   m_EditorClassIdentifier: 
+  ID: 4
   gridObject: {fileID: 865431096171739803, guid: 7128d6d8f1dac8c43b7ff02337b591de,
     type: 3}
   hoverPreview: {fileID: 4550238090076722492, guid: 88dc790051b76f34bac6e986633556aa,
     type: 3}
-  objectCount: 10
+  objectCount: 1
   objectImage: {fileID: 21300000, guid: 721a6ec63f7ef6d4f9e4c8d5258397f6, type: 3}
+  currObjects: 2

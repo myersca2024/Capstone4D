@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
   m_Name: PlatformY
   m_EditorClassIdentifier: 
+  ID: 8
   gridObject: {fileID: 1943942560722460899, guid: 24512e758fdebdc4daba064939e9c8a6,
     type: 3}
   hoverPreview: {fileID: 3647955957078333182, guid: 8ec1f1939d7f2714e91b5f9ee82d2892,
     type: 3}
-  objectCount: 10
+  objectCount: 1
   objectImage: {fileID: 21300000, guid: 2579dc75728b5fb4a85df9cc9af4cdb9, type: 3}
+  currObjects: 0

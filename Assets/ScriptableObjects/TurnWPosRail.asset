@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
   m_Name: TurnWPosRail
   m_EditorClassIdentifier: 
+  ID: 5
   gridObject: {fileID: 609058943470159402, guid: d722223389341fb48ae79419c19bb6d4,
     type: 3}
   hoverPreview: {fileID: 7795080989024807652, guid: 5986a7f5679f42347a4008694d51d415,
     type: 3}
-  objectCount: 10
+  objectCount: 0
   objectImage: {fileID: 21300000, guid: a71502b8348b7ef4c8605b489bcc6644, type: 3}
+  currObjects: 0

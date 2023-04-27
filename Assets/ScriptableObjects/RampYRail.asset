@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
   m_Name: RampYRail
   m_EditorClassIdentifier: 
+  ID: 7
   gridObject: {fileID: 869836335020137142, guid: 16331a70855c1a24485f00c3b2bd34e7,
     type: 3}
   hoverPreview: {fileID: 5229996140508527788, guid: 43ced42d36afc1240a1da00ee3c7e9ee,
     type: 3}
-  objectCount: 10
+  objectCount: 1
   objectImage: {fileID: 21300000, guid: 838f2f2ba9cc00d4db471cd1bc46349b, type: 3}
+  currObjects: 0

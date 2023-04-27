@@ -7,6 +7,7 @@ public class ObjectUIController : MonoBehaviour
     [SerializeField] private RectTransform contentPanel;
 
     private List<Object4DUIController> UIObjects;
+    private ObjectTracker4D ot;
     private ObjectPlacer4D objectPlacer;
     private Shape4DStorage shapeData;
 
@@ -17,6 +18,7 @@ public class ObjectUIController : MonoBehaviour
         {
             UIObjects.Add(contentPanel.GetChild(i).GetComponent<Object4DUIController>());
         }
+        ot = GameObject.FindGameObjectWithTag("ObjectTracker").GetComponent<ObjectTracker4D>();
         objectPlacer = GameObject.FindGameObjectWithTag("ObjectPlacer").GetComponent<ObjectPlacer4D>();
         objectPlacer.onShapePlaced.AddListener(DecrementCurrentShape);
         objectPlacer.onShapeDeleted.AddListener(UpdateUITexts);
@@ -31,7 +33,7 @@ public class ObjectUIController : MonoBehaviour
 
     public void DecrementCurrentShape()
     {
-        if (GameManager.isPlayMode && shapeData != null) 
+        if (shapeData != null && (GameManager.isPlayMode || (shapeData.gridObject.GetComponent<GridRailBehavior>().isStart || shapeData.gridObject.GetComponent<GridRailBehavior>().isEnd))) 
         { 
             shapeData.DecrementObjectCount();
             UpdateUITexts();
@@ -40,11 +42,16 @@ public class ObjectUIController : MonoBehaviour
 
     public void CheckObjectAvailability()
     {
-        if (GameManager.isPlayMode && shapeData.GetCurrentObjectCount() <= 0)
+        if ((GameManager.isPlayMode || (shapeData.gridObject.GetComponent<GridRailBehavior>().isStart || shapeData.gridObject.GetComponent<GridRailBehavior>().isEnd)) && shapeData.GetCurrentObjectCount() <= 0)
         {
             objectPlacer.SetObjectToPlace(null);
             shapeData = null;
         }
+    }
+
+    public void UpdateTrackerCounts(int objectID, int count)
+    {
+        ot.SetObjectCount(objectID, count);
     }
 
     private void UpdateUITexts()

@@ -16,6 +16,7 @@ public class ObjectPlacer4D : MonoBehaviour
     private RaymarchCam rc;
     private GridObject go;
     private ObjectHoverPreview ohp;
+    private ObjectTracker4D ot;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class ObjectPlacer4D : MonoBehaviour
         go = FindObjectOfType<GridObject>();
         rc = FindObjectOfType<RaymarchCam>();
         ohp = gameObject.GetComponent<ObjectHoverPreview>();
+        ot = GameObject.FindGameObjectWithTag("ObjectTracker").GetComponent<ObjectTracker4D>();
     }
 
     void Update()
@@ -82,6 +84,7 @@ public class ObjectPlacer4D : MonoBehaviour
         grb.InitializePathways();
         // gosb.CurrentShapeUsed();
         // recorder.PushAction(shape, gosb.GetCurrentShapeID());
+        if (!GameManager.isPlayMode) { ot.AddObjectInstruction(shape); }
         onShapePlaced.Invoke();
     }
 
@@ -98,6 +101,7 @@ public class ObjectPlacer4D : MonoBehaviour
 
         if (go.grid.GetValue(x, y + 1, z, w)) { Remove4DShape(x, y + 1, z, w); }
         GridRailBehavior shapeToDelete = go.grid.GetShape(x, y, z, w);
+        if (!GameManager.isPlayMode) { ot.RemoveObjectInstruction(x, y, z, w); }
         go.grid.SetValue(null, x, y, z, w);
         shapeToDelete.DeleteShape(x, y, z, w);
         onShapeDeleted.Invoke();

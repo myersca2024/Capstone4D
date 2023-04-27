@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class Object4DUIController : MonoBehaviour
     [SerializeField] private Image shapeImage;
     [SerializeField] private TMP_Text shapeCount;
     [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private bool amountSelectOverride;
 
     private ObjectUIController masterUIController;
     private ObjectPlacer4D objectPlacer;
@@ -21,7 +23,7 @@ public class Object4DUIController : MonoBehaviour
         masterUIController = GameObject.FindGameObjectWithTag("ObjectSelectUI").GetComponent<ObjectUIController>();
         shapeImage.sprite = gridObject.objectImage;
         shapeCount.text = gridObject.GetCurrentObjectCount().ToString();
-        if (GameManager.isPlayMode)
+        if (GameManager.isPlayMode || amountSelectOverride)
         {
             inputField.gameObject.SetActive(false);
             if (gridObject.GetCurrentObjectCount() == 0)
@@ -34,9 +36,31 @@ public class Object4DUIController : MonoBehaviour
         // objectPlacer.onShapePlaced.AddListener(UpdateCountText);
     }
 
+    public void UpdateRailCount()
+    {
+        int cur = Int32.Parse(inputField.text);
+        cur = Mathf.Clamp(cur, 0, 99);
+        inputField.text = cur.ToString();
+        masterUIController.UpdateTrackerCounts(gridObject.ID, cur);
+    }
+
+    public void IncrementInputField()
+    {
+        int cur = Int32.Parse(inputField.text);
+        cur = Mathf.Clamp(cur + 1, 0, 99);
+        inputField.text = cur.ToString();
+    }
+
+    public void DecrementInputField()
+    {
+        int cur = Int32.Parse(inputField.text);
+        cur = Mathf.Clamp(cur - 1, 0, 99);
+        inputField.text = cur.ToString();
+    }
+
     public void UpdateCountText()
     {
-        if (GameManager.isPlayMode) { shapeCount.text = gridObject.GetCurrentObjectCount().ToString(); }
+        if (GameManager.isPlayMode || amountSelectOverride) { shapeCount.text = gridObject.GetCurrentObjectCount().ToString(); }
     }
 
     public void SetShapeToPlace()

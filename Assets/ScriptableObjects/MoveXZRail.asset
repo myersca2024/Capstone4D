@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90c596c487d03b4cb49831e1ee96c39, type: 3}
   m_Name: MoveXZRail
   m_EditorClassIdentifier: 
+  ID: 2
   gridObject: {fileID: 4187949600515991604, guid: c8ff4aac82cf5de41b05959a83b1b2e5,
     type: 3}
   hoverPreview: {fileID: 4011226421173159836, guid: 557f60dc8a6161047994f2e2afd1eff3,
     type: 3}
-  objectCount: 10
+  objectCount: 1
   objectImage: {fileID: 21300000, guid: 7ddbc3ddc2cc5e14c9ef033e28674d1d, type: 3}
+  currObjects: 11

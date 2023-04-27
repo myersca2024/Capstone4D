@@ -119,7 +119,7 @@ public class GridObjectSelect : MonoBehaviour
                     go.grid.GetShape(pos.x, pos.y, pos.z, wPos).deletable)
                 {
                     spotToPlaceShape = pos;
-                    Debug.Log(pos);
+                    // Debug.Log(pos);
                     return;
                 }
             }

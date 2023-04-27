@@ -34,7 +34,7 @@ Transform:
   - {fileID: 5985089149753465286}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &869836335020137142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,17 +70,28 @@ MonoBehaviour:
   gridXYZ: {x: -1, y: -1, z: -1}
   gridW: -1
   directions:
-  - x: 0
-    y: 1
-    z: 1
-    w: 0
-  - x: 0
+  - x: 1
     y: 0
-    z: -1
+    z: 0
+    w: 0
+  - x: -1
+    y: 1
+    z: 0
     w: 0
   stackable: 0
   deletable: 1
+  isStart: 0
+  isEnd: 0
   data: {fileID: 11400000, guid: cc2836b1865a2e94fb0a5a45a5fa7738, type: 2}
+  connectedSpaces:
+  - x: 0
+    y: 0
+    z: 0
+    w: 0
+  - x: 0
+    y: 0
+    z: 0
+    w: 0
 --- !u!1 &5985089149753465304
 GameObject:
   m_ObjectHideFlags: 0
