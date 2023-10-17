@@ -53,11 +53,13 @@ public class CartAnimator : MonoBehaviour
 
     public void InitializeWaypoints(List<GridRailBehavior.Int4> positions)
     {
+        /*
         waypointIndex = 0;
         waypoints = positions;
         isAnimating = true;
         targetPos = GetGridCenter(waypoints[0].x, waypoints[0].y, waypoints[0].z);
         wAxisController.UpdateWPosition((waypoints[0].w - 1) * 2);
+        */
     }
 
     private Vector3 GetGridCenter(int x, int y, int z)

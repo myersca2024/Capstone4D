@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static bool isPlayMode = false;
     public GridRailBehavior startPoint;
     public GridRailBehavior endPoint;
+    public GameObject winPanel;
+    public GameObject pausePanel;
     public CartAnimator cart;
 
     private List<GridRailBehavior.Int4> trackForAnimations;
@@ -55,6 +57,12 @@ public class GameManager : MonoBehaviour
         grb.InitializePathways();
     }
 
+    public void ActivateWinPanel()
+    {
+        pausePanel.SetActive(false);
+        winPanel.SetActive(true);
+    }
+
     public void CheckWin()
     {
         GridRailBehavior.Int4 endPos = new GridRailBehavior.Int4(endPoint.gridXYZ.x, endPoint.gridXYZ.y, endPoint.gridXYZ.z, endPoint.gridW);
@@ -77,6 +85,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("success!");
                     trackForAnimations.Add(endPos);
                     cart.InitializeWaypoints(trackForAnimations);
+                    ActivateWinPanel();
                     return;
                 }
                 else
@@ -101,6 +110,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("success!");
                     trackForAnimations.Add(endPos);
                     cart.InitializeWaypoints(trackForAnimations);
+                    ActivateWinPanel();
                     return;
                 }
                 else
@@ -127,6 +137,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("success!");
                     trackForAnimations.Add(endPos);
                     cart.InitializeWaypoints(trackForAnimations);
+                    ActivateWinPanel();
                     return;
                 }
                 else
@@ -153,6 +164,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("success!");
                     trackForAnimations.Add(endPos);
                     cart.InitializeWaypoints(trackForAnimations);
+                    ActivateWinPanel();
                     return;
                 }
                 else

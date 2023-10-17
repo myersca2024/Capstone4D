@@ -31,6 +31,11 @@ public class SceneManagement : MonoBehaviour
         isPaused = val;
     }
 
+    public void SetLevelToLoad(string fileName)
+    {
+        GameManager.levelToLoad = "MainLevels/" + fileName;
+    }
+
     public void LoadMainMenu()
     {
         isPaused = false;
