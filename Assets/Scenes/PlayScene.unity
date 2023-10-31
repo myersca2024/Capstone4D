@@ -6133,11 +6133,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1207464938590650498, guid: 0749359930e3bae4f80b484f79222b97,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1207464938590650498, guid: 0749359930e3bae4f80b484f79222b97,
-        type: 3}
       propertyPath: m_LocalScale.x
       value: 1.25
       objectReference: {fileID: 0}
@@ -6201,72 +6196,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4246289442688685224, guid: 0749359930e3bae4f80b484f79222b97,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246289442688685224, guid: 0749359930e3bae4f80b484f79222b97,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5296613485602819837, guid: 0749359930e3bae4f80b484f79222b97,
         type: 3}
       propertyPath: m_Name
       value: Cart
       objectReference: {fileID: 0}
+    - target: {fileID: 7093522253002420049, guid: 0749359930e3bae4f80b484f79222b97,
+        type: 3}
+      propertyPath: onAnimationComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1051409458}
+    - target: {fileID: 7093522253002420049, guid: 0749359930e3bae4f80b484f79222b97,
+        type: 3}
+      propertyPath: onAnimationComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 23146648}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5296613485602819837, guid: 0749359930e3bae4f80b484f79222b97,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1973422834}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0749359930e3bae4f80b484f79222b97, type: 3}
---- !u!1 &1973422833 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5296613485602819837, guid: 0749359930e3bae4f80b484f79222b97,
+--- !u!114 &1973422834 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7093522253002420049, guid: 0749359930e3bae4f80b484f79222b97,
     type: 3}
   m_PrefabInstance: {fileID: 1973422832}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1973422834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973422833}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 550a1694028c6ef49b9bfafb9b7df92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  distanceToWaypoint: 0.01
-  endWaitTime: 1
-  winEffect: {fileID: 4669541832926637084, guid: f79f12aaa22f44c4587eeaa265bdf3d5,
-    type: 3}
-  loseEffect: {fileID: 4114684570775298324, guid: 793402ed2687cd7439c8eb47cd0c2e72,
-    type: 3}
-  onAnimationComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1051409458}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ActivateWinPanel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 23146648}
-        m_TargetAssemblyTypeName: ButtonPanelUIController, Assembly-CSharp
-        m_MethodName: SetButtonsActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!1001 &1980436473
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class CartAnimator : MonoBehaviour
     public float endWaitTime;
     public GameObject winEffect;
     public GameObject loseEffect;
+    public AudioClip explosionSound;
+    public AudioClip confettiSound;
     public UnityEvent onAnimationComplete;
 
     private Vector3 startingPos;
@@ -24,6 +26,7 @@ public class CartAnimator : MonoBehaviour
     private bool isAnimating = false;
     private Vector3 targetPos;
     private bool gameSuccess = false;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -33,6 +36,7 @@ public class CartAnimator : MonoBehaviour
         waypoints = new List<Float4>();
         wAxisController = GameObject.FindGameObjectWithTag("WAxisController").GetComponent<WAxisController>();
         go = GameObject.FindGameObjectWithTag("4DGrid").GetComponent<GridObject>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -45,8 +49,7 @@ public class CartAnimator : MonoBehaviour
                 animationStarted = true;
             }
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            float angleToPoint = Vector3.Angle(transform.position, targetPos - transform.position);
-            Debug.Log(angleToPoint);
+            // float angleToPoint = Vector3.Angle(transform.position, targetPos - transform.position);
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetPos - transform.position, Mathf.PI, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
             if (Vector3.Distance(transform.position, targetPos) <= distanceToWaypoint)
@@ -124,10 +127,15 @@ public class CartAnimator : MonoBehaviour
         animationStarted = false;
         isAnimating = false;
         waypoints.Clear();
-        if (gameSuccess) { Instantiate(winEffect, transform.position + new Vector3(0, 0.5f, 0), transform.rotation); }
+        if (gameSuccess) 
+        { 
+            Instantiate(winEffect, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
+            LoadAndPlayAudio(confettiSound);
+        }
         else 
         { 
             Instantiate(loseEffect, transform.position, transform.rotation);
+            LoadAndPlayAudio(explosionSound);
             ResetTransform();
         }
         StartCoroutine(WaitThenInvoke());
@@ -175,6 +183,12 @@ public class CartAnimator : MonoBehaviour
 
         if (toReturn == null) { Debug.Log("Could not find "); }
         return toReturn;
+    }
+
+    private void LoadAndPlayAudio(AudioClip audio)
+    {
+        audioSource.clip = audio;
+        audioSource.Play();
     }
 
     [Serializable]
