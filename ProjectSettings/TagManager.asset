@@ -23,9 +23,9 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Particles
   - DisplayCamera
-  - 
+  - TestLayer2
   - 
   - 
   - 
@@ -51,4 +51,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: TestLayer
+    uniqueID: 1891258655
     locked: 0

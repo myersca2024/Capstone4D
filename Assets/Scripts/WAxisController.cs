@@ -24,6 +24,7 @@ public class WAxisController : MonoBehaviour
         {
             if (lastWPos > targetWPos) { rc._wPosition = Mathf.Clamp(rc._wPosition - moveSpeed * Time.deltaTime, lastWPos - deltaW, lastWPos + deltaW); }
             else { rc._wPosition = Mathf.Clamp(rc._wPosition + moveSpeed * Time.deltaTime, lastWPos - deltaW, lastWPos + deltaW); }
+
             if (rc._wPosition == targetWPos) { isBusy = false; }
         }
     }

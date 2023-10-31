@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform target;
     public float cameraSpeed;
+    public GameManager gm;
 
     private bool endGame = false;
     private PlayerControls playerControls;
@@ -23,7 +24,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (!endGame && !SceneManagement.isPaused)
+        if (!endGame && !SceneManagement.isPaused && !gm.IsGameOver())
         {
             if (playerControls.Player.CameraLock.WasPerformedThisFrame() || playerControls.Player.CameraLock.IsPressed())
             {

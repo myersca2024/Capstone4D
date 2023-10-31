@@ -14,8 +14,6 @@ public class GridRailBehavior : MonoBehaviour
     [SerializeField] private Shape4DStorage data;
     public Int4[] connectedSpaces;
 
-    private bool reinitialize = false;
-
     private void Start()
     {
         if (isStart)
@@ -107,5 +105,35 @@ public class GridRailBehavior : MonoBehaviour
             this.z = z;
             this.w = w;
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public static bool operator ==(Int4 i41, Int4 i42)
+        {
+            if (ReferenceEquals(i41, i42)) { return true; }
+            if (ReferenceEquals(i41, null)) { return false; }
+            if (ReferenceEquals(i42, null)) { return false; }
+            return i41.x == i42.x &&
+                   i41.y == i42.y &&
+                   i41.z == i42.z &&
+                   i41.w == i42.w;
+        }
+
+        public static bool operator !=(Int4 i41, Int4 i42) => !(i41 == i42);
+
+        public bool Equals(Int4 other)
+        {
+            if (ReferenceEquals(other, null)) { return false; }
+            if (ReferenceEquals(this, other)) { return true; }
+            return x == other.x &&
+                   y == other.y &&
+                   z == other.z &&
+                   w == other.w;
+        }
+
+        public override bool Equals(object obj) => Equals(obj as Int4);
     }
 }

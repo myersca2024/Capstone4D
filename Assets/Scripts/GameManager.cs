@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
     public CartAnimator cart;
 
-    private List<GridRailBehavior.Int4> trackForAnimations;
+    private List<GridRailBehavior> trackForAnimations;
     private ObjectTracker4D ot;
     private GridObject go;
+    private bool gameWon = false;
+    private bool gameFinished = false;
 
     private void Awake()
     {
@@ -59,8 +61,14 @@ public class GameManager : MonoBehaviour
 
     public void ActivateWinPanel()
     {
-        pausePanel.SetActive(false);
-        winPanel.SetActive(true);
+        if (gameWon)
+        {
+            gameFinished = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            pausePanel.SetActive(false);
+            winPanel.SetActive(true);
+        }
     }
 
     public void CheckWin()
@@ -69,12 +77,12 @@ public class GameManager : MonoBehaviour
         GridRailBehavior.Int4 currPos = new GridRailBehavior.Int4(startPoint.gridXYZ.x, startPoint.gridXYZ.y, startPoint.gridXYZ.z, startPoint.gridW);
         GridRailBehavior.Int4 aboveCurrPos = new GridRailBehavior.Int4(currPos.x, currPos.y + 1, currPos.z, currPos.w);
         GridRailBehavior.Int4 nextMove = startPoint.connectedSpaces[0];
-        trackForAnimations = new List<GridRailBehavior.Int4>();
+        trackForAnimations = new List<GridRailBehavior>();
         while (!Int4Equal(currPos, endPos))
         {
             Debug.Log("Current: " + "[" + currPos.x + ", " + currPos.y + ", " + currPos.z + ", " + currPos.w + "]");
             Debug.Log("Next: " + "[" + nextMove.x + ", " + nextMove.y + ", " + nextMove.z + ", " + nextMove.w + "]");
-            trackForAnimations.Add(currPos);
+            trackForAnimations.Add(go.grid.GetShape(currPos.x, currPos.y, currPos.z, currPos.w));
             aboveCurrPos = new GridRailBehavior.Int4(currPos.x, currPos.y + 1, currPos.z, currPos.w);
             // Normal connection
             if (go.grid.GetValue(nextMove.x, nextMove.y, nextMove.z, nextMove.w) &&
@@ -82,10 +90,7 @@ public class GameManager : MonoBehaviour
             {
                 if (Int4Equal(nextMove, endPos))
                 {
-                    Debug.Log("success!");
-                    trackForAnimations.Add(endPos);
-                    cart.InitializeWaypoints(trackForAnimations);
-                    ActivateWinPanel();
+                    OnLevelWin(go.grid.GetShape(endPos.x, endPos.y, endPos.z, endPos.w));
                     return;
                 }
                 else
@@ -93,8 +98,7 @@ public class GameManager : MonoBehaviour
                     GridRailBehavior.Int4 connectedSpace = go.grid.GetShape(nextMove.x, nextMove.y, nextMove.z, nextMove.w).GetConnectedSpace(currPos);
                     if (connectedSpace == null)
                     {
-                        Debug.Log("failure!");
-                        cart.InitializeWaypoints(trackForAnimations);
+                        OnLevelFail();
                         return;
                     }
                     currPos = nextMove;
@@ -107,10 +111,7 @@ public class GameManager : MonoBehaviour
             {
                 if (Int4Equal(nextMove, endPos))
                 {
-                    Debug.Log("success!");
-                    trackForAnimations.Add(endPos);
-                    cart.InitializeWaypoints(trackForAnimations);
-                    ActivateWinPanel();
+                    OnLevelWin(go.grid.GetShape(endPos.x, endPos.y, endPos.z, endPos.w));
                     return;
                 }
                 else
@@ -118,8 +119,7 @@ public class GameManager : MonoBehaviour
                     GridRailBehavior.Int4 connectedSpace = go.grid.GetShape(nextMove.x, nextMove.y, nextMove.z, nextMove.w).GetConnectedSpace(aboveCurrPos);
                     if (connectedSpace == null)
                     {
-                        Debug.Log("failure!");
-                        cart.InitializeWaypoints(trackForAnimations);
+                        OnLevelFail();
                         return;
                     }
                     currPos = nextMove;
@@ -134,10 +134,7 @@ public class GameManager : MonoBehaviour
                 nextMove = new GridRailBehavior.Int4(nextMove.x, nextMove.y - 1, nextMove.z, nextMove.w);
                 if (Int4Equal(nextMove, endPos))
                 {
-                    Debug.Log("success!");
-                    trackForAnimations.Add(endPos);
-                    cart.InitializeWaypoints(trackForAnimations);
-                    ActivateWinPanel();
+                    OnLevelWin(go.grid.GetShape(endPos.x, endPos.y, endPos.z, endPos.w));
                     return;
                 }
                 else
@@ -145,8 +142,7 @@ public class GameManager : MonoBehaviour
                     GridRailBehavior.Int4 connectedSpace = go.grid.GetShape(nextMove.x, nextMove.y, nextMove.z, nextMove.w).GetConnectedSpace(currPos);
                     if (connectedSpace == null)
                     {
-                        Debug.Log("failure!");
-                        cart.InitializeWaypoints(trackForAnimations);
+                        OnLevelFail();
                         return;
                     }
                     currPos = nextMove;
@@ -161,10 +157,7 @@ public class GameManager : MonoBehaviour
                 nextMove = new GridRailBehavior.Int4(nextMove.x, nextMove.y - 1, nextMove.z, nextMove.w);
                 if (Int4Equal(nextMove, endPos))
                 {
-                    Debug.Log("success!");
-                    trackForAnimations.Add(endPos);
-                    cart.InitializeWaypoints(trackForAnimations);
-                    ActivateWinPanel();
+                    OnLevelWin(go.grid.GetShape(endPos.x, endPos.y, endPos.z, endPos.w));
                     return;
                 }
                 else
@@ -172,8 +165,7 @@ public class GameManager : MonoBehaviour
                     GridRailBehavior.Int4 connectedSpace = go.grid.GetShape(nextMove.x, nextMove.y, nextMove.z, nextMove.w).GetConnectedSpace(aboveCurrPos);
                     if (connectedSpace == null)
                     {
-                        Debug.Log("failure!");
-                        cart.InitializeWaypoints(trackForAnimations);
+                        OnLevelFail();
                         return;
                     }
                     currPos = nextMove;
@@ -182,11 +174,25 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("failure!");
-                cart.InitializeWaypoints(trackForAnimations);
+                OnLevelFail();
                 return;
             }
         }
+    }
+
+    private void OnLevelWin(GridRailBehavior endObj)
+    {
+        Debug.Log("success!");
+        gameWon = true;
+        trackForAnimations.Add(endObj);
+        cart.InitializeWaypoints(trackForAnimations, true);
+    }
+
+    private void OnLevelFail()
+    {
+        Debug.Log("failure!");
+        gameWon = false;
+        cart.InitializeWaypoints(trackForAnimations, false);
     }
 
     private bool Int4Equal(GridRailBehavior.Int4 s1, GridRailBehavior.Int4 s2)
@@ -213,5 +219,10 @@ public class GameManager : MonoBehaviour
     public void SetPlayMode(bool val)
     {
         isPlayMode = val;
+    }
+
+    public bool IsGameOver()
+    {
+        return gameFinished;
     }
 }

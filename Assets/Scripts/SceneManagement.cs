@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
+    public GameManager gm;
     public GameObject pausePanel;
     public static bool isPaused = false;
 
@@ -18,16 +19,18 @@ public class SceneManagement : MonoBehaviour
 
     private void Update()
     {
-        if (pausePanel != null && playerControls.Player.Pause.WasPerformedThisFrame())
+        if (pausePanel != null && !gm.IsGameOver() && playerControls.Player.Pause.WasPerformedThisFrame())
         {
             bool pauseSwitch = !pausePanel.activeSelf;
             pausePanel.SetActive(pauseSwitch);
-            isPaused = pauseSwitch;
+            SetPause(pauseSwitch);
         }
     }
 
     public void SetPause(bool val)
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         isPaused = val;
     }
 
@@ -64,6 +67,6 @@ public class SceneManagement : MonoBehaviour
 
     public void QuitGame()
     {
-
+        Application.Quit();
     }
 }
